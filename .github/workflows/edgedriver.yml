@@ -1,14 +1,20 @@
 name: Install Microsoft Edge
-on:
+
+on: 
   push:
-    branches: [ main ] 
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   install-edge:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Set up environment
       run: |
