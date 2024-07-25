@@ -1,9 +1,8 @@
 name: Install Microsoft Edge
 
-on: 
+on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   
 jobs:
   install-edge:
