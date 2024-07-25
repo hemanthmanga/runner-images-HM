@@ -1,9 +1,7 @@
 name: Install Microsoft Edge
-
 on:
   push:
-    branches: [ main ]
-  
+    branches: [ main ] 
 jobs:
   install-edge:
     runs-on: ubuntu-22.04
