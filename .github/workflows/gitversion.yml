@@ -1,0 +1,27 @@
+name: Verify and Run GitVersion
+
+on:
+  push:
+    branches:
+      - gitversion
+  pull_request:
+    branches:
+      - gitversion
+
+jobs:
+  verify_gitversion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Verify .git directory
+        run: |
+          if [ ! -d ".git" ]; then
+            echo "Error: .git directory not found!"
+            exit 1
+          fi
+
+      - name: Run GitVersion
+        run: gitversion /version
