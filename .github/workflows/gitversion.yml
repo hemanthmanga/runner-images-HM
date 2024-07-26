@@ -20,14 +20,16 @@ jobs:
         run: |
           Invoke-WebRequest -Uri "https://github.com/GitTools/GitVersion/releases/download/5.8.1/gitversion-linux-x64-5.8.1.tar.gz" -OutFile "gitversion-linux-x64-5.8.1.tar.gz"
           tar -xzf gitversion-linux-x64-5.8.1.tar.gz
-          sudo mv gitversion /usr/local/bin/gitversion
+          Move-Item -Path gitversion -Destination "C:\usr\local\bin\gitversion"
 
       - name: Verify .git directory
         run: |
-          if [ ! -d ".git" ]; then
-            echo "Error: .git directory not found!"
+          if (Test-Path ".git") {
+            Write-Output ".git directory found"
+          } else {
+            Write-Error "Error: .git directory not found!"
             exit 1
-          fi
+          }
 
       - name: Run GitVersion
         run: gitversion /version
