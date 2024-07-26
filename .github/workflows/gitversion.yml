@@ -10,7 +10,7 @@ on:
 
 jobs:
   verify_gitversion:
-    runs-on: windows-19
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
