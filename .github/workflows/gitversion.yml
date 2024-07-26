@@ -16,6 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install GitVersion
+        run: |
+          wget https://github.com/GitTools/GitVersion/releases/download/5.8.1/gitversion-linux-x64-5.8.1.tar.gz
+          tar -xzf gitversion-linux-x64-5.8.1.tar.gz
+          sudo mv gitversion /usr/local/bin/gitversion
+
       - name: Verify .git directory
         run: |
           if [ ! -d ".git" ]; then
