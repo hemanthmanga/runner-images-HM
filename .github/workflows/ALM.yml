@@ -1,0 +1,22 @@
+name: ALM Integration
+
+on: [push]
+
+jobs:
+  alm-job:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Add steps to configure and interact with your ALM tool here
+    - name: Setup ALM Tool
+      run: |
+        # Commands to setup and authenticate ALM tool
+        echo "Setting up ALM Tool"
+
+    - name: Update ALM with build status
+      run: |
+        # Commands to update ALM tool with build status
+        echo "Updating ALM with build status"
