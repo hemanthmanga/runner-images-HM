@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up ALM Client
       run: |
@@ -18,7 +18,7 @@ jobs:
     - name: Register COM Library
       run: |
         # Register the required COM library
-        regsvr32 "C:\Path\To\Mercury.TD.Client.Ota.QC9.dll"
+        regsvr32 "C:\\Path\\To\\Mercury.TD.Client.Ota.QC9.dll"
       shell: cmd
 
     - name: Verify ALM Client Installation
