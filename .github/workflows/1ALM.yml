@@ -12,8 +12,11 @@ jobs:
 
     - name: Set up ALM Client
       run: |
-        # Ensure ALM client is installed; replace the below command with the actual installation command
-        choco install alm-client
+        # Replace with the correct installation command for ALM client
+        # Example: Download and install ALM client
+        Invoke-WebRequest -Uri 'http://example.com/alm-client-installer.exe' -OutFile 'alm-client-installer.exe'
+        Start-Process 'alm-client-installer.exe' -ArgumentList '/silent' -Wait
+      shell: pwsh
 
     - name: Register COM Library
       run: |
@@ -24,4 +27,5 @@ jobs:
     - name: Verify ALM Client Installation
       run: |
         # Run a script to verify that the ALM client works correctly
-        powershell -File .\path\to\your\verification\script.ps1
+        .\path\to\your\verification\script.ps1
+      shell: pwsh
