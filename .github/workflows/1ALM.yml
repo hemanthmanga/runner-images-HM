@@ -1,0 +1,27 @@
+name: Check ALM Client Installation
+
+on: [push, pull_request]
+
+jobs:
+  check-alm-client:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up ALM Client
+      run: |
+        # Ensure ALM client is installed; replace the below command with the actual installation command
+        choco install alm-client
+
+    - name: Register COM Library
+      run: |
+        # Register the required COM library
+        regsvr32 "C:\Path\To\Mercury.TD.Client.Ota.QC9.dll"
+      shell: cmd
+
+    - name: Verify ALM Client Installation
+      run: |
+        # Run a script to verify that the ALM client works correctly
+        powershell -File .\path\to\your\verification\script.ps1
