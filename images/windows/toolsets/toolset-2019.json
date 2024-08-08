@@ -139,10 +139,6 @@
             "android;m2repository",
             "google;m2repository",
             "google;google_play_services",
-            "m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2",
-            "m2repository;com;android;support;constraint;constraint-layout-solver;1.0.1",
-            "m2repository;com;android;support;constraint;constraint-layout;1.0.2",
-            "m2repository;com;android;support;constraint;constraint-layout;1.0.1"
         ],
         "addons": [
             "addon-google_apis-google-24",
