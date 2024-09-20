@@ -10,11 +10,57 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.7
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'  # Change this version as needed
+          python-version: '3.7.x'
 
-      - name: Verify Python installation
+      - name: Verify Python 3.7 installation
         run: |
           python --version
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8.x'
+
+      - name: Verify Python 3.8 installation
+        run: |
+          python --version
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9.x'
+
+      - name: Verify Python 3.9 installation
+        run: |
+          python --version
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.x'
+
+      - name: Verify Python 3.10 installation
+        run: |
+          python --version
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.x'
+
+      - name: Verify Python 3.11 installation
+        run: |
+          python --version
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.x'
+
+      - name: Verify Python 3.12 installation
+        run: |
+          python --version
+
