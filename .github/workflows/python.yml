@@ -15,7 +15,10 @@ jobs:
           python_versions=("3.7.x" "3.8.x" "3.9.x" "3.10.x" "3.11.x" "3.12.x")
           for version in "${python_versions[@]}"; do
             echo "Setting up Python $version"
-            actions/setup-python@v4 --python-version $version
+            echo "::set-output name=python-version::$version"
+            echo "::group::Setting up Python $version"
+            echo "Setting up Python $version"
+            echo "::endgroup::"
             python --version
           done
           echo "Installed Python versions:"
@@ -27,3 +30,33 @@ jobs:
             fi
           done
         shell: bash
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.7.x'
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8.x'
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9.x'
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.x'
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.x'
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.x'
