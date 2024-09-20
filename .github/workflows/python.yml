@@ -1,0 +1,20 @@
+name: Python Setup Test
+
+on: [push]
+
+jobs:
+  setup-python:
+    runs-on: windows-22
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'  # Change this version as needed
+
+      - name: Verify Python installation
+        run: |
+          python --version
