@@ -1,15 +1,19 @@
-name: List Available Az Modules
+name: Check Az Modules
 
 on: [push, pull_request]
 
 jobs:
-  list-az-modules:
+  check-az-modules:
     runs-on: windows-latest
-
+    
     steps:
-    - name: Check out repository
+    - name: Checkout repository
       uses: actions/checkout@v2
-
+    
+    - name: Install Az Modules
+      run: Install-Module -Name Az -AllowClobber -Force -Scope CurrentUser
+      shell: pwsh
+    
     - name: List Az Modules
-      run: |
-        pwsh -command "Get-Module -Name Az.* -ListAvailable"
+      run: Get-Module -Name Az.* -ListAvailable
+      shell: pwsh
