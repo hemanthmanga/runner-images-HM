@@ -1,0 +1,15 @@
+name: Check Az Modules
+
+on: [push, pull_request]
+
+jobs:
+  check-az-modules:
+    runs-on: windows-2022
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - name: List Az Modules
+      run: Get-Module -Name Az.* -ListAvailable
+      shell: pwsh
