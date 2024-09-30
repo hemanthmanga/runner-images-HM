@@ -2,9 +2,9 @@ name: main
 
 on:
   push:
-    branches: [ staging, main ]
+    branches: [ staging, sudo ]
   pull_request:
-    branches: [ staging, main ]
+    branches: [ staging, sudo ]
   workflow_dispatch:
 
 jobs:
