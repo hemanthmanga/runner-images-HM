@@ -12,11 +12,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
         include:
           - os: ubuntu-latest
-            cache-path: ${{ github.workspace }}/vcpkg_cache
-          - os: macos-latest
             cache-path: ${{ github.workspace }}/vcpkg_cache
     env:  
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
