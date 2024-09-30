@@ -165,6 +165,7 @@
         ],
         "mingw": [
             {
+                "version": "8.1.0",
                 "arch": "mingw-w64-x86_64",
                 "exec_dir": "mingw64",
                 "runtime_packages": [
