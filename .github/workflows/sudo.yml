@@ -12,17 +12,22 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
             cache-path: ${{ github.workspace }}/vcpkg_cache
+          - os: macos-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+
     env:  
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
     steps:
-    - name: Update and install sudo
-      if: matrix.os == 'ubuntu-latest'
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up vcpkg
       run: |
-        sudo apt-get update
-        sudo apt-get install sudo
+        # Example of setting up vcpkg or any necessary commands
+        echo "Setting up vcpkg on ${{ matrix.os }}"
