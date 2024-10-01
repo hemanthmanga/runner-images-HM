@@ -4,7 +4,7 @@ on:
   push:
     branches: [ staging, sudo ]
   pull_request:
-      branches: [ staging, sudo ]
+    branches: [ staging, sudo ]
   workflow_dispatch:
 
 jobs:
@@ -16,11 +16,15 @@ jobs:
         include:
           - os: ubuntu-22.04
             cache-path: ${{ github.workspace }}/vcpkg_cache
+
     env:  
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
-  steps:
-    - name: install sudo
-      if: matrix.os == 'ubuntu-latest'
-      run: sudo apt update && sudo apt install -y sudo
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Update package list on Ubuntu
+      if: startsWith(matrix.os, 'ubuntu')
+      run: sudo apt-get update
