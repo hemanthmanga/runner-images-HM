@@ -9,18 +9,12 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        include:
-          - os: ubuntu-latest
-            cache-path: ${{ github.workspace }}/vcpkg_cache     
+    runs-on: ubuntu-latest
     env:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
-      VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
+      VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
 
     steps:
     - name: install sudo
-      if: matrix.os == 'ubuntu-latest'
       run: sudo apt update && sudo apt install -y sudo
+      
