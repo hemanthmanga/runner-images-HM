@@ -24,5 +24,6 @@ jobs:
     - name: Update and install sudo
       if: matrix.os == 'ubuntu-latest'
       run: |
+           su -
            apt-get update
            apt-get install sudo -y
