@@ -12,19 +12,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-22.04, ubuntu-24.04]
+        os: [ubuntu-latest]
         include:
-          - os: ubuntu-22.04
-            cache-path: ${{ github.workspace }}/vcpkg_cache
-
-    env:  
+          - os: ubuntu-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache     
+    env:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Update package list on Ubuntu
-      if: startsWith(matrix.os, 'ubuntu')
-      run: sudo apt-get update
+    - name: install sudo
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt update && sudo apt install -y sudo
