@@ -2,9 +2,9 @@ name: sudo
 
 on:
   push:
-    branches: [ staging, sudo ]
+    branches: [staging, sudo]
   pull_request:
-    branches: [ staging, sudo ]
+    branches: [staging, sudo]
   workflow_dispatch:
 
 jobs:
@@ -15,8 +15,8 @@ jobs:
       VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
 
     steps:
-    - name: install sudo
-      run: |
-        sudo apt update
-        sudo apt install -y sudo   #### sudo available in ubuntu
-      
+    - name: Update package list
+      run: sudo apt update
+
+    - name: Install necessary packages
+      run: sudo apt install -y git 
