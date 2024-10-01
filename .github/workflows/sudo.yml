@@ -1,10 +1,10 @@
-name: sudo
+name: main
 
 on:
   push:
-    branches: [ staging, sudo ]
+    branches: [ staging, main ]
   pull_request:
-    branches: [ staging, sudo ]
+      branches: [ staging, main ]
   workflow_dispatch:
 
 jobs:
@@ -12,17 +12,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, ubuntu-22.04, ubuntu-24.04]
         include:
           - os: ubuntu-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+          - os: macos-latest
             cache-path: ${{ github.workspace }}/vcpkg_cache
     env:  
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
     steps:
-    - name: Update and Install Dependencies (Ubuntu)
+    - name: install sudo
       if: matrix.os == 'ubuntu-latest'
-      run: |
-        apt-get update
-        apt-get install -y sudo
+      run: apt update && apt install sudo
