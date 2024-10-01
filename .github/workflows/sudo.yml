@@ -22,5 +22,5 @@ jobs:
 
     steps:
     - name: install sudo
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-22.04, ubuntu-24.04'
       run: apt update && apt install sudo
