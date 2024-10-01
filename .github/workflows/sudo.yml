@@ -20,7 +20,7 @@ jobs:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
-    steps:
+  steps:
     - name: install sudo
-      if: matrix.os == 'ubuntu-22.04'
-      run: apt update && apt install sudo
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt update && sudo apt install -y sudo
