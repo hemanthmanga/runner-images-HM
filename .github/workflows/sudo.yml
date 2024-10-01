@@ -14,7 +14,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04, ubuntu-24.04]
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             cache-path: ${{ github.workspace }}/vcpkg_cache
     env:  
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
@@ -22,5 +22,5 @@ jobs:
 
     steps:
     - name: install sudo
-      if: matrix.os == 'ubuntu-22.04, ubuntu-24.04'
+      if: matrix.os == 'ubuntu-22.04'
       run: apt update && apt install sudo
