@@ -21,9 +21,8 @@ jobs:
       VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
     steps:
-    - name: Update and install sudo
+    - name: Update and Install Dependencies (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
       run: |
-           su -
-           apt-get update
-           apt-get install sudo -y
+        apt-get update
+        apt-get install -y sudo
