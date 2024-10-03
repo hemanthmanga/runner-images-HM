@@ -19,12 +19,8 @@ jobs:
       VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
       
     steps:
-       - name: Set up environment
-         run: |
-               echo "Running on ${{ runner.os }}"
-       
-       - name: sudo
-         run: |
-             sudo apt update
-             sudo apt install -y sudo   ##### sudo available in ubuntu
-             sudo -v
+      - name: sudo
+        run: |
+              sudo apt update
+              sudo apt install -y sudo   ##### sudo available in ubuntu
+              sudo -v
