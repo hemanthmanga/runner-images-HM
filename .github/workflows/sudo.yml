@@ -18,6 +18,5 @@ jobs:
     - name: install sudo
       run: |
         sudo apt update
-        sudo apt install sudo   #### sudo available in ubuntu
-        sudo apt list --upgradable
-       ## sudo -v
+        sudo apt install sudo -v   #### sudo available in ubuntu
+        
