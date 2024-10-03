@@ -9,14 +9,22 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04, ubuntu-22.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
     env:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
 
     steps:
-    - name: install sudo
+    - name: Set up environment
+      run: |
+        echo "Running on ${{ runner.os }}"
+
+    - name: Install sudo
       run: |
         sudo apt update
-        sudo apt install sudo   ####### sudo available in ubuntu
+        sudo apt install -y sudo   ####### sudo available in ubuntu
         sudo -v
+
