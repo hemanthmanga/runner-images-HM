@@ -1,30 +1,18 @@
 name: sudo
 
-on:
-  push:
-    branches: [ staging, sudo ]
-  pull_request:
-    branches: [ staging, sudo ]
+on: [ pull, push ]
+ 
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-22.04, ubuntu-24.04]
+    runs-on: ubuntu-24.04
     env:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
 
     steps:
-    - name: Set up environment
-      run: |
-        echo "Running on ${{ runner.os }}"
-
-    - name: Install sudo
+    - name: sudo
       run: |
         sudo apt update
-        sudo apt install -y sudo   ####### sudo available in ubuntu
-        sudo -v
-
+        sudo apt install sudo -v   #### sudo available in ubuntu
