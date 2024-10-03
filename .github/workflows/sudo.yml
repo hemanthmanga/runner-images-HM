@@ -23,4 +23,4 @@ jobs:
         run: |
               sudo apt update
               sudo apt install -y sudo   ##### sudo available in ubuntu
-              sudo -v
+              
