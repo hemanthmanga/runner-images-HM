@@ -21,6 +21,6 @@ jobs:
     steps:
       - name: sudo
         run: |
-              sudo apt update
-              sudo apt install -y sudo   ##### sudo available in ubuntu
+              sudo apt-get update
+              sudo apt-get install -y sudo   ##### sudo available in ubuntu
               sudo -v
