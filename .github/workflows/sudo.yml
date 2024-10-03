@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     env:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
@@ -17,8 +17,6 @@ jobs:
     steps:
     - name: install sudo
       run: |
-          # Switch to root user to install sudo
-           su -c "apt-get update && apt-get install -y sudo"
-
-    - name: Verify Sudo Installation
-      run: sudo -v
+        sudo apt update
+        apt install sudo   #### sudo available in ubuntu
+        sudo -v
