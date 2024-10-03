@@ -23,7 +23,7 @@ jobs:
          run: |
                echo "Running on ${{ runner.os }}"
        
-       - name: Install sudo
+       - name: sudo
          run: |
              sudo apt update
              sudo apt install -y sudo   ##### sudo available in ubuntu
