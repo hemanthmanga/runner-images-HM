@@ -18,7 +18,7 @@ jobs:
     - name: install sudo
       run: |
           # Switch to root user to install sudo
-          sudo su -c "apt-get update && apt-get install -y sudo"
+           su -c "apt-get update && apt-get install -y sudo"
 
     - name: Verify Sudo Installation
       run: sudo -v
