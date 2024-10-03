@@ -22,5 +22,5 @@ jobs:
       - name: sudo
         run: |
               sudo apt update
-              sudo apt install -y sudo   ##### sudo available in ubuntu
+              sudo apt install sudo   ##### sudo available in ubuntu
               
