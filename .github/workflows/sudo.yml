@@ -17,6 +17,6 @@ jobs:
     steps:
     - name: install sudo
       run: |
-        sudo apt-get update && apt-get install sudo
+        sudo apt update
           #### sudo available in ubuntu
         
