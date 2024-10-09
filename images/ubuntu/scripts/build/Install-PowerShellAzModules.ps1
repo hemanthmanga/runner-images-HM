@@ -6,6 +6,8 @@
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
+$env:PSModulePath += ":/usr/share/az_12.1.0"
+
 Import-Module "$env:HELPER_SCRIPTS/../tests/Helpers.psm1"
 
 # Get modules content from toolset
