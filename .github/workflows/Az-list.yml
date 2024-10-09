@@ -1,4 +1,4 @@
-name: Run Install-PowerShellAzModules Script
+name: Run PowerShell Script
 
 on: [push, pull_request]
 
@@ -9,6 +9,9 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
+
+    - name: Set HELPER_SCRIPTS Environment Variable
+      run: echo "HELPER_SCRIPTS=$GITHUB_WORKSPACE/images/ubuntu/scripts/build" >> $GITHUB_ENV
 
     - name: Run Install-PowerShellAzModules.ps1
       run: pwsh ./images/ubuntu/scripts/build/Install-PowerShellAzModules.ps1
