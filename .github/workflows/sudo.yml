@@ -4,7 +4,7 @@ on:
   push:
     branches: [ staging, sudo ]
   pull_request:
-      branches: [ staging, sudo ]
+    branches: [ staging, sudo ]
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
     steps:
-    - name: install sudo
+    - name: install dependencies
       if: matrix.os == 'ubuntu-latest'
-      run: apt update && apt install sudo
+      run: sudo apt update && sudo apt install -y <your-packages>
               
