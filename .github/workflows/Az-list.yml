@@ -1,0 +1,15 @@
+name: PWSH Shell Execution
+
+on: [push, pull_request]
+
+jobs:
+  run-pwsh-command:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: PWSH as a shell
+      run: |
+        Get-Module -ListAvailable | FT Name, Version
+      shell: pwsh
