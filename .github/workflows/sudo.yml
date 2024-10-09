@@ -1,29 +1,28 @@
-name: Install Specific Sudo Version
+name: sudo
 
-on: push
+on:
+  push:
+    branches: [ staging, sudo ]
+  pull_request:
+    branches: [ staging, sudo ]
+  workflow_dispatch:
 
 jobs:
-  install-sudo:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+          - os: macos-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+    env:  
+      VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+      VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Download specific sudo version
-      run: wget https://www.sudo.ws/sudo/dist/sudo-1.9.9.tar.gz
-
-    - name: Extract downloaded tarball
-      run: tar -xvf sudo-1.9.9.tar.gz
-
-    - name: Change directory to extracted folder
-      run: cd sudo-1.9.9
-
-    - name: Compile sudo
-      run: make
-
-    - name: Install sudo
-      run: sudo make install
-
-    - name: Install specific sudo version using apt-get
-      run: apt-get install sudo=1.9.9-1ubuntu1.2
+    - name: install dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt update && sudo apt install -y wget 
