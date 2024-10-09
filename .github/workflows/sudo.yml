@@ -17,7 +17,7 @@ jobs:
       run: tar -xvf sudo-1.9.9.tar.gz
 
     - name: Change directory to extracted folder
-      run: cd sudo-1.8.31
+      run: cd sudo-1.9.9
 
     - name: Configure sudo
       run: ./configure
