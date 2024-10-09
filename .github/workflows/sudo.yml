@@ -4,23 +4,26 @@ on:
   push:
     branches: [ staging, sudo ]
   pull_request:
-    branches: [ staging, sudo ]
+      branches: [ staging, sudo ]
   workflow_dispatch:
-
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04]
-    env:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+          - os: macos-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+    env:  
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
-      VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
-      
+      VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
+
     steps:
-      - name: sudo
-        run: |
-              sudo apt update
-              sudo apt install sudo   ##### sudo available in ubuntu
+    - name: install sudo
+      if: matrix.os == 'ubuntu-latest'
+      run: apt update && apt install sudo
               
