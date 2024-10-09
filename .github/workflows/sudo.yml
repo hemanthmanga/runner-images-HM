@@ -25,5 +25,4 @@ jobs:
     steps:
     - name: install dependencies
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt update && sudo apt install -y <your-packages>
-              
+      run: sudo apt update && sudo apt install -y build-essential curl
