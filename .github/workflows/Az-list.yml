@@ -1,15 +1,15 @@
-name: PWSH Shell Execution
+name: Run Install-PowerShellAzModules Script
 
 on: [push, pull_request]
 
 jobs:
-  run-pwsh-command:
+  run-script:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
 
-    - name: PWSH as a shell
-      run: |
-        Get-Module -ListAvailable | FT Name, Version
+    - name: Run Install-PowerShellAzModules.ps1
+      run: pwsh ./images/ubuntu/scripts/build/Install-PowerShellAzModules.ps1
       shell: pwsh
