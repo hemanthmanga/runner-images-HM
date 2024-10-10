@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v5
 
     - name: Set HELPER_SCRIPTS Environment Variable
       run: echo "HELPER_SCRIPTS=$GITHUB_WORKSPACE/images/ubuntu/scripts/build" >> $GITHUB_ENV
