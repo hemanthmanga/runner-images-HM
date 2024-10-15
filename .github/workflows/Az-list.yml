@@ -1,18 +1,20 @@
-name: Run PowerShell Script
-
-on: [push, pull_request]
-
+name: Install Zip Package
+on:
+  push:
+    branches:
+      - Az-list
 jobs:
-  run-script:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-2024.04
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Update APT and Install Zip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip
+      - name: Verify Zip Installation
+        run: |
+          zip --version
+          echo "Zip is installed and available.
 
-    - name: Set HELPER_SCRIPTS Environment Variable
-      run: echo "HELPER_SCRIPTS=$GITHUB_WORKSPACE/images/ubuntu/scripts/build" >> $GITHUB_ENV
-
-    - name: Run Install-PowerShellAzModules.ps1
-      run: pwsh ./images/ubuntu/scripts/build/Install-PowerShellAzModules.ps1
-      shell: pwsh
