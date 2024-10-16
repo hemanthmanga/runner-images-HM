@@ -1,8 +1,6 @@
 name: Install Zip Package
-on:
-  push:
-    branches:
-      - zip
+on: [push, pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-2024.04
