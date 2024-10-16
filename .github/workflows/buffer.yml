@@ -1,0 +1,19 @@
+name: Install Zip Package
+on:
+  push:
+    branches:
+      - zip
+jobs:
+  build:
+    runs-on: ubuntu-2024.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Update APT and Install Zip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip
+      - name: Verify Zip Installation
+        run: |
+          zip --version
+          echo "Zip is installed and available."
