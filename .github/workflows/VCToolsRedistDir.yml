@@ -8,9 +8,10 @@ jobs:
   test:
     runs-on: windows-2019
     steps:
-      - name: Check if VCToolsRedistDir exists
+      - name: Set VCToolsRedistDir manually
         shell: cmd
         run: |
+          set VCToolsRedistDir=C:\Path\To\VCToolsRedistDir
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
           :: Check if VCToolsRedistDir is set
           if not defined VCToolsRedistDir (
