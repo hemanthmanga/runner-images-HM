@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: windows-2019
     steps:
-      - name: Set VCToolsRedistDir manually
+      - name: Manually set VCToolsRedistDir
         shell: cmd
         run: |
           set VCToolsRedistDir=C:\Path\To\VCToolsRedistDir
