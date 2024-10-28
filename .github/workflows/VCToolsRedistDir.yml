@@ -1,29 +1,20 @@
 name: Test VCToolsRedistDir
 
 on:
+  workflow_dispatch:
   push:
-  pull_request:
 
 jobs:
   test:
-    runs-on: windows-2022
+    runs-on: windows-2019
     steps:
-      - name: Set VCToolsRedistDir manually
-        shell: cmd
-        run: |
-          set VCToolsRedistDir=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.29.30133\x64\
-
       - name: Check if VCToolsRedistDir exists
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-          
-          echo VCToolsInstallDir: %VCToolsInstallDir%
-          echo VCToolsRedistDir: %VCToolsRedistDir%
-          
+          :: Check if VCToolsRedistDir is set
           if not defined VCToolsRedistDir (
             echo Error: Environment variable VCToolsRedistDir is not set.
             exit /b 1
           )
-
 
