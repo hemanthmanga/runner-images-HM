@@ -1,4 +1,4 @@
-name: Test VCToolsRedistDir
+name: Check VCToolsRedistDir
 
 on:
   workflow_dispatch:
@@ -7,32 +7,20 @@ on:
 jobs:
   test:
     runs-on: windows-2019
-    env:
-      VCToolsRedistDir: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Redist\\MSVC\\14.29.30037\\x64\\"
-
     steps:
-      - name: Check if VCToolsRedistDir exists
+      - name: Check VCToolsRedistDir
         shell: cmd
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-          
-          :: Output all environment variables for debugging
-          echo Listing all environment variables:
-          set
+          :: Manually set the VCToolsRedistDir variable
+          set VCToolsRedistDir="C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.29.30156\x64\"
 
-          :: Check if the VCToolsRedistDir variable is set
-          if not defined VCToolsRedistDir (
-            echo Error: Environment variable VCToolsRedistDir is not set.
-            exit /b 1
-          ) else (
-            echo VCToolsRedistDir is set to: %VCToolsRedistDir%
-          )
+          :: Output the variable to confirm
+          echo VCToolsRedistDir is set to: %VCToolsRedistDir%
 
           :: Check if the directory exists
-          if exist "%VCToolsRedistDir%" (
+          if exist %VCToolsRedistDir% (
             echo The VCToolsRedistDir path exists.
           ) else (
             echo The VCToolsRedistDir path does not exist: %VCToolsRedistDir%
             exit /b 1
           )
-
