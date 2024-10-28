@@ -12,7 +12,7 @@ jobs:
         shell: cmd
         run: |
           :: Manually set the VCToolsRedistDir variable
-          set VCToolsRedistDir="C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.29.30156\x64\"
+          set VCToolsRedistDir="C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.40.33816.0\x64\"
 
           :: Output the variable to confirm
           echo VCToolsRedistDir is set to: %VCToolsRedistDir%
