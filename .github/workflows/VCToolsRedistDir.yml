@@ -17,6 +17,7 @@ jobs:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
           
           :: Output all environment variables for debugging
+          echo Listing all environment variables:
           set
 
           :: Check if the VCToolsRedistDir variable is set
@@ -26,3 +27,12 @@ jobs:
           ) else (
             echo VCToolsRedistDir is set to: %VCToolsRedistDir%
           )
+
+          :: Check if the directory exists
+          if exist "%VCToolsRedistDir%" (
+            echo The VCToolsRedistDir path exists.
+          ) else (
+            echo The VCToolsRedistDir path does not exist: %VCToolsRedistDir%
+            exit /b 1
+          )
+
