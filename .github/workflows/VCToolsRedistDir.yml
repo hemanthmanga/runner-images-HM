@@ -7,16 +7,22 @@ on:
 jobs:
   test:
     runs-on: windows-2019
+    env:
+      VCToolsRedistDir: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.29.30037\x64\"
+
     steps:
       - name: Check if VCToolsRedistDir exists
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-          :: Print all environment variables for debugging
+          
+          :: Output all environment variables for debugging
           set
-          :: Check if VCToolsRedistDir is set
+
+          :: Check if the VCToolsRedistDir variable is set
           if not defined VCToolsRedistDir (
             echo Error: Environment variable VCToolsRedistDir is not set.
             exit /b 1
+          ) else (
+            echo VCToolsRedistDir is set to: %VCToolsRedistDir%
           )
-          echo VCToolsRedistDir is set to %VCToolsRedistDir%
