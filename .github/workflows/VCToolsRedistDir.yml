@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: windows-2019
     env:
-      VCToolsRedistDir: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.29.30037\x64\"
+      VCToolsRedistDir: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Redist\\MSVC\\14.29.30037\\x64\\"
 
     steps:
       - name: Check if VCToolsRedistDir exists
