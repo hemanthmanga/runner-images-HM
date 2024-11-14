@@ -169,7 +169,14 @@
             "xorriso",
             "xvfb",
             "xz-utils",
-            "zsync"
+            "zsync",
+            "libgcc-s1",
+            "libgssapi-krb5-2",
+            "libicu70",
+            "liblttng-ust1",
+            "libssl3",
+            "libstdc++6",
+            "zlib1g"
         ],
         "cmd_packages": [
             "acl",
