@@ -1,0 +1,37 @@
+name: Install .NET SDK on Ubuntu
+
+on:
+  push:
+    branches:
+      - DotnetSDK9.0
+  pull_request:
+    branches:
+      - DotnetSDK9.0
+
+jobs:
+  check-dotnet-version:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04, ubuntu-24.04]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Microsoft package repository for .NET
+      run: |
+        # Download Microsoft package signing key and package list for Ubuntu
+        wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb
+        # Install the Microsoft package signing key and package repository
+        sudo dpkg -i packages-microsoft-prod.deb
+        sudo apt-get update
+
+    - name: Install .NET SDK 9.0 (if available)
+      run: |
+        sudo apt-get install -y dotnet-sdk-9.0 || echo "dotnet-sdk-9.0 not available in the repository"
+
+    - name: Verify installation
+      run: |
+        # Check installed .NET SDK version
+        dotnet --version
