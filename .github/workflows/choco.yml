@@ -1,0 +1,16 @@
+name: Install Chocolatey
+
+on: [push, pull_request]
+
+jobs:
+  install-chocolatey:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Chocolatey
+      shell: pwsh
+      run: |
+        .\images\windows\scripts\build\Install-Chocolatey.ps1
