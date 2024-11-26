@@ -1,0 +1,16 @@
+name: Install Git
+
+on: [push, pull_request]
+
+jobs:
+  install-git:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Git
+      shell: pwsh
+      run: |
+        .\images\windows\scripts\build\Install-Git.ps1
