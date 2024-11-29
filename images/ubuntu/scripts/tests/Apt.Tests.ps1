@@ -13,7 +13,7 @@ Describe "Apt" {
             "sphinxsearch" { $toolName = "searchd"; break }
             "binutils"     { $toolName = "strings"; break }
             "coreutils"    { $toolName = "tr"; break }
-            "net-tools"    { $toolName = "netstat"; break }
+            "net-tools"    { $toolName = "netcat-openbsd"; break }
             "mercurial"    { $toolName = "hg"; break }
             "findutils"    { $toolName = "find"; break }
         }
