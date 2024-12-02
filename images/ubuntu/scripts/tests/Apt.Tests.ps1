@@ -14,7 +14,7 @@ Describe "Apt" {
             "binutils"     { $toolName = "strings"; break }
             "coreutils"    { $toolName = "tr"; break }
             "net-tools"    { $toolName = "netstat"; break }
-            "netcat-openbsd" { $toolName = "nc"; break }
+            "netcat-openbsd" { $toolName = "netcat"; break }
             "mercurial"    { $toolName = "hg"; break }
             "findutils"    { $toolName = "find"; break }
         }
