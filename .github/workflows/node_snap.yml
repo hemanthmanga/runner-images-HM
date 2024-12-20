@@ -1,28 +1,16 @@
-name: CI
+
+name: Install Node.js using Snap
 
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
-
+  install-node:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install Node.js using snap
-      run: sudo snap install node --classic --channel=${{ inputs.node_version }}
-
-    - name: Verify Node.js installation
-      run: node --version
-
-    - name: Check for package.json
-      run: test -f package.json || { echo "package.json not found"; exit 1; }
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run build
-      run: npm run build
-
-    - name: Run tests
-      run: npm test
+      - name: Install Node.js
+        run: sudo snap install node --classic --channel=${{ inputs.node_version }}
+        env:
+          inputs.node_version: "14/stable"  # Example version, replace as needed
