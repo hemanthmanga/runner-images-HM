@@ -9,10 +9,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ inputs.node_version }}
+    - name: Install Node.js using snap
+      run: sudo snap install node --classic --channel=${{ inputs.node_version }}
+
+    - name: Verify Node.js installation
+      run: node --version
+
+    - name: Check for package.json
+      run: test -f package.json || { echo "package.json not found"; exit 1; }
 
     - name: Install dependencies
       run: npm install
