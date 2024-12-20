@@ -11,5 +11,5 @@ jobs:
 
       - name: Install Node.js
         run: sudo snap install node --classic --channel=${{ inputs.node_version }}
-        env:
-          inputs.node_version: "14/stable"  # Example version, replace as needed
+  ##      env:
+    ##      inputs.node_version: "14/stable"  # Example version, replace as needed
