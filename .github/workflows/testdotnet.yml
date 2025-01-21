@@ -1,0 +1,25 @@
+name: Setup .NET 8.0.x
+
+on:
+  push:
+    branches:
+      - Ddnett
+  pull_request:
+    branches:
+      - Ddnett
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET 8.0.x
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Display .NET SDK version
+      run: dotnet --version
