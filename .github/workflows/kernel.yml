@@ -1,0 +1,26 @@
+name: Install Kernel and Display Version
+
+on:
+  push:
+    branches:
+      - kernel
+  pull_request:
+    branches:
+      - kernel
+
+jobs:
+  install-kernel:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Update package list
+      run: sudo apt-get update
+
+    - name: Install kernel
+      run: sudo apt-get install -y linux-image-generic
+
+    - name: Display kernel version
+      run: uname -r
