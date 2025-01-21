@@ -14,12 +14,13 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Setup .NET 8.0.x
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
+    - name: Install .NET 8.0.x
+      run: |
+        wget https://dot.net/v1/dotnet-install.sh
+        chmod +x ./dotnet-install.sh
+        ./dotnet-install.sh --channel 8.0
 
     - name: Display .NET SDK version
-      run: dotnet --version
+      run: ~/.dotnet/dotnet --version
