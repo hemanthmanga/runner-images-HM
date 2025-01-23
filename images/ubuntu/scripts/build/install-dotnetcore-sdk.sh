@@ -42,6 +42,10 @@ Pin: origin packages.microsoft.com
 Pin-Priority: 1001
 EOF
 
+# Add the .NET backports PPA
+echo "Adding .NET backports PPA..."
+sudo add-apt-repository -y ppa:dotnet/backports
+
 apt-get update
 
 for latest_package in ${latest_dotnet_packages[@]}; do
