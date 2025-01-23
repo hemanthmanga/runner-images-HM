@@ -1,0 +1,19 @@
+name: Run gh command
+
+on: [push, pull_request]
+
+jobs:
+  run-gh-command:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Change permissions for gh config
+        run: sudo chmod 644 /home/runneradmin/.config/gh/config.yml
+
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh -y
+
+      - name: Run gh command
+        run: gh --version
