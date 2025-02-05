@@ -1,0 +1,20 @@
+name: Test Package Installation
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update apt repository
+      run: sudo apt-get update
+
+    - name: Attempt to install packages
+      run: |
+        sudo apt-get install -y libgl1-mesa-dev || echo "Failed to install libgl1-mesa-dev"
+        sudo apt-get install -y libegl1-mesa-dev || echo "Failed to install libegl1-mesa-dev"
+        sudo apt-get install -y mesa-common-dev || echo "Failed to install mesa-common-dev"
