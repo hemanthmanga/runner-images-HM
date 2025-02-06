@@ -5,24 +5,31 @@ on: [push, pull_request]
 
 jobs:
   checksum:
-    runs-on: windows-2025
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: Install Ubuntu on WSL2
+      run: |
+        # Install Ubuntu if no distribution is found
+        if (-Not (Test-Path "C:\Users\runneradmin\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu")) {
+          Write-Host "Installing Ubuntu on WSL2..."
+          wsl --install -d Ubuntu
+          # Wait for the distribution to finish installing
+          Start-Sleep -Seconds 60
+        }
+        else {
+          Write-Host "Ubuntu is already installed."
+        }
 
     - name: Generate SHA256 Checksum on WSL2
       run: |
         # Define the path to the file you want to checksum
         $filePath = "C:\\path\\to\\your\\file.txt"
 
-        # Ensure WSL2 is installed and available
-        if (-Not (Test-Path "C:\Windows\System32\wsl.exe")) {
-          Write-Error "WSL is not installed or accessible on this system."
-          exit 1
-        }
-
-        # Run the WSL2 command to calculate the SHA256 checksum
+        # Run the WSL2 command to calculate the SHA256 checksum using Ubuntu
         $wslCommand = "wsl sha256sum '$filePath'"
         
         # Execute the command and capture the result
