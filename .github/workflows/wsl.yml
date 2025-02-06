@@ -11,19 +11,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up WSL2
-      uses: wslbuilder/setup-wsl@v2.0
-
     - name: Generate SHA256 Checksum on WSL2
       run: |
-        # Path to the file you want to checksum (adjust if necessary)
+        # Define the path to the file you want to checksum
         $filePath = "C:\\path\\to\\your\\file.txt"
 
-        # Ensure WSL2 is ready and calculate the checksum using sha256sum
+        # Ensure WSL2 is installed and available
+        if (-Not (Test-Path "C:\Windows\System32\wsl.exe")) {
+          Write-Error "WSL is not installed or accessible on this system."
+          exit 1
+        }
+
+        # Run the WSL2 command to calculate the SHA256 checksum
         $wslCommand = "wsl sha256sum '$filePath'"
         
-        # Run the WSL2 command to generate SHA256 checksum
+        # Execute the command and capture the result
         $checksum = Invoke-Expression $wslCommand
+        
+        # Output the checksum to the console
         Write-Host "SHA256 Checksum: $checksum"
 
     - name: Print SHA256 checksum
