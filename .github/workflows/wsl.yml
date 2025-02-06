@@ -29,6 +29,9 @@ jobs:
         # Define the path to the file you want to checksum
         $filePath = "C:\\path\\to\\your\\file.txt"
 
+        # Ensure the distribution is properly initialized
+        wsl -e bash -c "echo 'Running checksum in WSL2...'"
+        
         # Run the WSL2 command to calculate the SHA256 checksum using Ubuntu
         $wslCommand = "wsl sha256sum '$filePath'"
         
