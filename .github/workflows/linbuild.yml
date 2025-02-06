@@ -12,9 +12,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y libgl1-mesa-dev libegl1-mesa-dev mesa-common-dev
-
+        sudo apt-get update 2>/dev/null
+        sudo apt-get install -y libgl1-mesa-dev libegl1-mesa-dev mesa-common-dev 2>/dev/null
     - name: Verify installed dependencies
       run: |
         apt list --installed | grep -E 'libgl1-mesa-dev|libegl1-mesa-dev|mesa-common-dev'
