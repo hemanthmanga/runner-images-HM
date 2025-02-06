@@ -1,30 +1,31 @@
-name: Generate WSL2 Checksum
+
+name: Generate SHA256 Checksum on Windows (WSL2)
 
 on: [push, pull_request]
 
 jobs:
-  generate-checksum:
+  checksum:
     runs-on: windows-2025
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          choco install openssl
+    - name: Set up WSL2
+      uses: wslbuilder/setup-wsl@v2.0
 
-      - name: Generate WSL2 image checksum
-        run: |
-          # Replace `wsl2-image.tar` with the actual WSL2 image file
-          openssl dgst -sha256 wsl2-image.tar > checksum.txt
+    - name: Generate SHA256 Checksum on WSL2
+      run: |
+        # Path to the file you want to checksum (adjust if necessary)
+        $filePath = "C:\\path\\to\\your\\file.txt"
 
-      - name: Print checksum
-        run: |
-          type checksum.txt
+        # Ensure WSL2 is ready and calculate the checksum using sha256sum
+        $wslCommand = "wsl sha256sum '$filePath'"
+        
+        # Run the WSL2 command to generate SHA256 checksum
+        $checksum = Invoke-Expression $wslCommand
+        Write-Host "SHA256 Checksum: $checksum"
 
-      - name: Upload checksum
-        uses: actions/upload-artifact@v4
-        with:
-          name: wsl2-checksum
-          path: checksum.txt
+    - name: Print SHA256 checksum
+      run: |
+        echo "SHA256 checksum generation complete!"
