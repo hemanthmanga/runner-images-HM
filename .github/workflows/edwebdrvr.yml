@@ -1,0 +1,45 @@
+name: Get Edge WebDriver Signature
+
+on:
+  push:
+    branches:
+      - edge
+  pull_request:
+    branches:
+      - edge
+  schedule:
+    - cron: '0 0 * * 1-5'
+
+jobs:
+  download-verify-edgedriver:
+    runs-on: windows-2019
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Edge WebDriver
+        run: |
+          $latestVersion = Invoke-RestMethod -Uri "https://msedgedriver.azureedge.net/LATEST_STABLE" -UseBasicParsing
+          $url = "https://msedgedriver.azureedge.net/$latestVersion/edgedriver_win64.zip"
+          Invoke-WebRequest -Uri $url -OutFile "edgedriver_win64.zip"
+
+      - name: Verify Edge WebDriver Signature
+        run: |
+          $zipPath = "edgedriver_win64.zip"
+          $unzipPath = "edgedriver"
+          Expand-Archive -Path $zipPath -DestinationPath $unzipPath -Force
+          $driverPath = Join-Path $unzipPath "msedgedriver.exe"
+          $signature = Get-AuthenticodeSignature -FilePath $driverPath
+          if ($signature.Status -ne 'Valid') {
+            throw "The signature of the Edge WebDriver is not valid."
+          }
+
+      - name: Extract Edge WebDriver
+        run: |
+          $unzipPath = "edgedriver"
+          Expand-Archive -Path "edgedriver_win64.zip" -DestinationPath $unzipPath -Force
+
+      - name: Display Edge WebDriver Version
+        run: |
+          .\edgedriver\msedgedriver.exe --version
