@@ -4,51 +4,52 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # You can specify specific Ubuntu versions here if needed
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code (if needed)
-      uses: actions/checkout@v4 # Only needed if your script is in a repo
+      - name: Checkout code (if needed)
+        uses: actions/checkout@v4 # Only needed if your script is in a repo
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y make libssl-dev libghc-zlib-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make libssl-dev zlib1g-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
 
-    - name: Download, Compile, and Install Git 2.47.1
-      run: |
-        wget https://github.com/git/git/archive/v2.47.1.tar.gz -O git.tar.gz
-        tar -zxf git.tar.gz
-        cd git-2.47.1
-        make prefix=/usr/local all
-        sudo make prefix=/usr/local install
+      - name: Download, Compile, and Install Git 2.47.1
+        run: |
+          wget https://github.com/git/git/archive/v2.47.1.tar.gz
+          tar -zxf v2.47.1.tar.gz
+          cd git-2.47.1
+          make prefix=/usr/local all
+          sudo make prefix=/usr/local install
 
-    - name: Clean up
-      run: |
-        cd ..
-        sudo rm -rf git-2.47.1
-        sudo rm git.tar.gz
+      - name: Configure Git (safe directory)
+        run: |
+          cat <<EOF >> /etc/gitconfig
+[safe]
+  directory = *
+EOF
 
-    - name: Configure Git (safe directory)
-      run: |
-        sudo mkdir -p /home/runner/.git
-        sudo chown runner:runner /home/runner/.git
-        git config --global --add safe.directory /__w/actions-playground/actions-playground
+      - name: Install git-ftp
+        run: sudo apt-get install -y git-ftp
 
-    - name: Install git-ftp
-      run: sudo apt-get install -y git-ftp
+      - name: Add SSH Host Keys
+        run: |
+          sudo ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> /etc/ssh/ssh_known_hosts
+          sudo ssh-keyscan -t rsa ssh.dev.azure.com >> /etc/ssh/ssh_known_hosts
 
-    - name: Add SSH Host Keys
-      run: |
-        sudo ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> /etc/ssh/ssh_known_hosts
-        sudo ssh-keyscan -t rsa ssh.dev.azure.com >> /etc/ssh/ssh_known_hosts
+      - name: Add /usr/local/bin to PATH (if needed)
+        run: |
+          if ! echo "$PATH" | grep -q "/usr/local/bin"; then
+            echo "export PATH=/usr/local/bin:\$PATH" >> ~/.bashrc
+            source ~/.bashrc
+          fi
 
-    - name: Add /usr/local/bin to PATH (if needed)
-      run: |
-        if ! echo "$PATH" | grep -q "/usr/local/bin"; then
-          echo "export PATH=/usr/local/bin:\$PATH" >> ~/.bashrc
-          source ~/.bashrc
-        fi
+      - name: Show Git Version
+        run: git --version
 
-    - name: Show Git Version
-      run: git --version
+      - name: Clean up
+        run: |
+          cd ..
+          sudo rm -rf git-2.47.1
+          sudo rm v2.47.1.tar.gz
