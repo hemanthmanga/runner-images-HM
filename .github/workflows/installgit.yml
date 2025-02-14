@@ -22,10 +22,10 @@ jobs:
         cd git-2.47.1
         make prefix=/usr/local all
         sudo make prefix=/usr/local install
+        cd .. # Return to the original directory
 
     - name: Clean up
       run: |
-        cd ..
         sudo rm -rf git-2.47.1
         sudo rm git.tar.gz
 
@@ -53,4 +53,3 @@ jobs:
 
     - name: Show Git Version
       run: git --version
-
