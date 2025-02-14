@@ -31,7 +31,7 @@ jobs:
 
     - name: Configure Git (safe directory)
       run: |
-        cat <<EOF >> /etc/gitconfig
+        sudo cat <<EOF >> /etc/gitconfig
         [safe]
                 directory = *
         EOF
