@@ -1,10 +1,11 @@
 name: Install Git 2.47.1 and Git-FTP
 
-on: [push, pull_request]
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # You can specify specific Ubuntu versions here if needed
+    runs-on: ubuntu-22.04  # You can specify specific Ubuntu versions here if needed
 
     steps:
     - name: Checkout code (if needed)
@@ -22,19 +23,18 @@ jobs:
         cd git-2.47.1
         make prefix=/usr/local all
         sudo make prefix=/usr/local install
-        cd .. # Return to the original directory
 
     - name: Clean up
       run: |
+        cd ..
         sudo rm -rf git-2.47.1
         sudo rm git.tar.gz
 
     - name: Configure Git (safe directory)
       run: |
-        sudo cat <<EOF >> /etc/gitconfig
-        [safe]
-                directory = *
-        EOF
+        sudo mkdir -p /home/runner/.git
+        sudo chown runner:runner /home/runner/.git
+        git config --global --add safe.directory /__w/actions-playground/actions-playground
 
     - name: Install git-ftp
       run: sudo apt-get install -y git-ftp
