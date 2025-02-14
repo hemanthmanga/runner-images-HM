@@ -1,11 +1,10 @@
 name: Install Git 2.47.1 and Git-FTP
 
-on:
-  workflow_dispatch: # Allows manual triggering of the workflow
+on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04  # You can specify specific Ubuntu versions here if needed
+    runs-on: ubuntu-latest  # You can specify specific Ubuntu versions here if needed
 
     steps:
     - name: Checkout code (if needed)
