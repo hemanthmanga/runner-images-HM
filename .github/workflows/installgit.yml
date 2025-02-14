@@ -1,29 +1,27 @@
-name: Install Git 2.47.1 and Git-FTP
+name: Deploy
 
-on: [push, pull_request]
-
+on:
+  push:
+    branches:
+      - git2.47.1
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code (if needed)
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Git using apt
+      - name: Install SSH Key
+        uses: shimataro/[email protected]
+        with:
+          key: "${{ secrets.SSH_PRIVATE_KEY }}"
+          known_hosts: "just-a-placeholder-so-we-dont-get-errors"
+
+      - name: Generate auth hosts
+        run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+      # Example deployment step (replace with your actual deployment commands)
+      - name: SSH and run a command
         run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-
-      - name: Verify Git version
-        run: git --version
-
-      - name: Install git-ftp
-        run: sudo apt-get install -y git-ftp
-
-      - name: Add SSH Host Keys
-        run: |
-          sudo ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> /etc/ssh/ssh_known_hosts
-          sudo ssh-keyscan -t rsa ssh.dev.azure.com >> /etc/ssh/ssh_known_hosts
-
+          ssh -o StrictHostKeyChecking=no  [email protected] "echo 'Deployment successful!'"
