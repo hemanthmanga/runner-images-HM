@@ -1,0 +1,14 @@
+name: Test Ubuntu Latest
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run a one-liner script
+      run: echo "This is a test run on ubuntu-latest"
