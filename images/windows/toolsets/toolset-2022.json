@@ -326,7 +326,7 @@
             { "name": "packer" },
             {
                 "name": "strawberryperl" ,
-                "args": [ "--version", "5.32.1.1" ]
+                "args": [ "--version", "5.40.1.1" ]
             },
             { "name": "pulumi" },
             { "name": "swig" },
