@@ -25,9 +25,9 @@ Describe "PostgreSQL" {
 
 
     It "PostgreSQL Service with specified version" {
-        "sudo systemctl start postgresql.service -v 16" | Should -ReturnZeroExitCode
-        "pg_isready" | Should -OutputTextMatchingRegex "/var/run/postgresql:5432 - accepting connections"
-        "sudo systemctl stop postgresql" | Should -ReturnZeroExitCode
+    "sudo systemctl start postgresql@16-main" | Should -ReturnZeroExitCode
+    "pg_isready" | Should -OutputTextMatchingRegex "/var/run/postgresql:5432 - accepting connections"
+    "sudo systemctl stop postgresql" | Should -ReturnZeroExitCode
     }
 }
 
