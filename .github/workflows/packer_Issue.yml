@@ -1,0 +1,23 @@
+name: CI Workflow
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v4
+
+      - name: Run PowerShell script
+        shell: pwsh
+        run: |
+          $targetDirName = "runner-images"
+          git clone --quiet "https://github.com/actions/runner-images.git" $targetDirName
+          Set-Location $targetDirName
+          $runnerTag = git tag --list "$image*" | Select -Last 1
+          Write-Output "Latest runner tag: $runnerTag"
