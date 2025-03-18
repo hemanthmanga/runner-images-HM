@@ -206,9 +206,17 @@ function Get-MavenVersion {
 }
 
 function Get-SbtVersion {
-    $result = Get-CommandResult "sbt -version"
-    $result.Output -match "sbt script version: (?<version>\d+\.\d+\.\d+)" | Out-Null
-    return $Matches.version
+    # Execute the sbt command to get the version
+    $result = Get-CommandResult "sbt --version"
+
+    # Check if the command executed successfully and captured output
+    if ($result -and $result.Output -match "sbt script version: (?<version>\d+\.\d+\.\d+)") {
+        return $Matches.version
+    } else {
+        # Log an error or throw an exception if version is not found
+        Write-Error "Unable to determine SBT version. Ensure SBT is installed and accessible."
+        return $null
+    }
 }
 
 function Get-PHPVersions {
